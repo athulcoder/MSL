@@ -15,6 +15,7 @@ async function main() {
     { clubName: "Wrexham" },
   ];
 
+  
   for (const club of clubs) {
     await prisma.club.create({
       data: club,
@@ -22,6 +23,10 @@ async function main() {
   }
 
   console.log("✅ Clubs seeded successfully");
+
+  const admin = {
+    
+  }
 }
 
 main()

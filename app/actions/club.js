@@ -35,5 +35,6 @@ export async function getClubs() {
     });
   }
 
+  console.log(sortedClubs)
   return sortedClubs;
 }
