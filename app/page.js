@@ -1,19 +1,29 @@
-"use client";
-
 import Image from "next/image";
+import { getClubs } from "./actions/club";
 
-const teams = [
-  { pos: 1, name: "Flamengos", logo: "/logos/flamengos.png", pl: 3, w: 2, d: 1, l: 0, gd: "+2", pts: 7 },
-  { pos: 2, name: "Botafago", logo: "/logos/botafago.png", pl: 3, w: 2, d: 1, l: 0, gd: "+2", pts: 7 },
-  { pos: 3, name: "Atlanta", logo: "/logos/atlanta.png", pl: 3, w: 2, d: 0, l: 1, gd: "+2", pts: 6 },
-  { pos: 4, name: "Ajax", logo: "/logos/ajax.png", pl: 2, w: 2, d: 0, l: 0, gd: "+2", pts: 6 },
-  { pos: 5, name: "Wolves", logo: "/logos/wolves.png", pl: 3, w: 1, d: 0, l: 2, gd: "-1", pts: 3 },
-  { pos: 6, name: "Celtics", logo: "/logos/celtics.png", pl: 3, w: 1, d: 0, l: 2, gd: "-1", pts: 3 },
-  { pos: 7, name: "Palmeras", logo: "/logos/palmeras.png", pl: 3, w: 0, d: 0, l: 1, gd: "-3", pts: 0 },
-  { pos: 8, name: "Wrexham", logo: "/logos/wrexham.png", pl: 2, w: 0, d: 0, l: 2, gd: "-3", pts: 0 },
-];
+// Always fresh data (no cache)
+export const dynamic = "force-dynamic";
 
-export default function FreshStandings() {
+export default async function FreshStandings() {
+  // Fetch from DB (SERVER SIDE)
+  const clubs = await getClubs();
+
+  // Convert DB data → UI format
+  const teams = clubs.map((club, index) => ({
+    pos: index + 1,
+    name: club.clubName,
+    logo: club.logoUrl || "/club.png",
+    pl: club.played,
+    w: club.won,
+    d: club.draw,
+    l: club.lost,
+    gd:
+      club.goal_diff > 0
+        ? `+${club.goal_diff}`
+        : `${club.goal_diff}`,
+    pts: club.points,
+  }));
+
   return (
     <main className="min-h-screen bg-[#062e24] bg-[radial-gradient(circle_at_top_right,_#064e3b,_#062e24)] p-4 md:p-12 font-sans selection:bg-emerald-300">
 
@@ -29,7 +39,6 @@ export default function FreshStandings() {
                 alt="MITS Logo"
                 width={50}
                 height={50}
-                className="object-contain"
               />
             </div>
 
@@ -51,39 +60,37 @@ export default function FreshStandings() {
         </header>
 
         {/* Table */}
-        <div className="overflow-x-auto pb-4 scrollbar-hide">
+        <div className="overflow-x-auto pb-4">
 
-          <table className="w-full text-left border-separate border-spacing-y-3 min-w-[800px]">
+          <table className="w-full text-left border-separate border-spacing-y-3 min-w-[800px] ">
 
-            {/* Table Head */}
             <thead>
               <tr className="text-[#d4af37] text-[18px] uppercase tracking-widest font-black">
-                <th className="py-2 px-2">Rank</th>
-                <th className="py-2 px-2">Club</th>
-                <th className="py-2 px-2 text-center">PL</th>
-                <th className="py-2 px-2 text-center">W</th>
-                <th className="py-2 px-2 text-center">D</th>
-                <th className="py-2 px-2 text-center">L</th>
-                <th className="py-2 px-2 text-center">GD</th>
-                <th className="py-2 px-8 text-right">Pts</th>
+                <th className="text-center">Rank</th>
+                <th>Club</th>
+                <th className="text-center">PL</th>
+                <th className="text-center">W</th>
+                <th className="text-center">D</th>
+                <th className="text-center">L</th>
+                <th className="text-center">GD</th>
+                <th className="text-center font-bold text-pink-400">Pts</th>
               </tr>
             </thead>
 
-            {/* Table Body */}
-            <tbody className="text-sm">
+            <tbody className="text-sm rounded-2xl ">
 
               {teams.map((team) => (
 
                 <tr
                   key={team.name}
-                  className="group bg-white hover:bg-white transition-all duration-300 shadow-md hover:shadow-xl"
+                  className="group bg-white shadow-md hover:shadow-xl "
                 >
 
                   {/* Rank */}
-                  <td className="py-4 px-2 rounded-l-2xl border border-emerald-100 border-r-0">
+                  <td className="py-4 px-2 rounded-l-2xl border text-center">
                     <span
                       className={`text-lg font-black ${
-                        team.pos <= 3
+                        team.pos <= 4
                           ? "text-emerald-600"
                           : "text-slate-400"
                       }`}
@@ -93,20 +100,21 @@ export default function FreshStandings() {
                   </td>
 
                   {/* Club */}
-                  <td className="py-4 px-3 border border-emerald-100 border-l-0 border-r-0">
+                  <td className="py-4 px-3 border">
                     <div className="flex items-center gap-4">
 
-                      <div className="w-10 h-10 rounded-full bg-emerald-50 flex items-center justify-center p-1.5 border border-emerald-200 group-hover:scale-110 transition">
+                      <div className="w-10 h-10 rounded-full bg-emerald-50 p-1.5 border">
+
                         <Image
                           src={team.logo}
                           alt={team.name}
-                          width={30}
-                          height={30}
-                          className="object-contain"
+                          width={40}
+                          height={40}
                         />
+
                       </div>
 
-                      <span className="font-bold text-emerald-950 uppercase tracking-tight">
+                      <span className="font-bold text-emerald-950 uppercase">
                         {team.name}
                       </span>
 
@@ -114,27 +122,16 @@ export default function FreshStandings() {
                   </td>
 
                   {/* Stats */}
-                  <td className="py-4 px-2 text-center font-semibold text-slate-600 border border-emerald-100 border-l-0 border-r-0">
-                    {team.pl}
-                  </td>
-
-                  <td className="py-4 px-2 text-center font-semibold text-slate-600 border border-emerald-100 border-l-0 border-r-0">
-                    {team.w}
-                  </td>
-
-                  <td className="py-4 px-2 text-center font-semibold text-slate-600 border border-emerald-100 border-l-0 border-r-0">
-                    {team.d}
-                  </td>
-
-                  <td className="py-4 px-2 text-center font-semibold text-slate-600 border border-emerald-100 border-l-0 border-r-0">
-                    {team.l}
-                  </td>
+                  <td className="py-4 px-2 text-center text-xl  text-black font-semibold">{team.pl}</td>
+                  <td className="py-4 px-2 text-center text-xl  text-black font-semibold">{team.w}</td>
+                  <td className="py-4 px-2 text-center text-xl  text-black font-semibold">{team.d}</td>
+                  <td className="py-4 px-2 text-center text-xl  text-black font-semibold">{team.l}</td>
 
                   {/* GD */}
-                  <td className="py-4 px-2 text-center border border-emerald-100 border-l-0 border-r-0">
+                  <td className="py-4 px-2 text-center">
                     <span
-                      className={`font-black ${
-                        team.gd.includes("+")
+                      className={`font-black text-xl font-semibold ${
+                        team.gd.startsWith("+")
                           ? "text-emerald-600"
                           : "text-rose-500"
                       }`}
@@ -144,9 +141,9 @@ export default function FreshStandings() {
                   </td>
 
                   {/* Points */}
-                  <td className="py-4 px-8 text-right rounded-r-2xl border border-emerald-100 border-l-0">
+                  <td className="py-4 px-3 text-center rounded-r-2xl border">
 
-                    <span className="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-600 text-white font-black shadow-lg shadow-emerald-600/30 group-hover:scale-110 transition">
+                    <span className="items-center justify-center rounded-xl text-xl text-green-500 w-full   text-black  font-black">
                       {team.pts}
                     </span>
 
@@ -163,7 +160,7 @@ export default function FreshStandings() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-12 flex items-center justify-between border-t border-emerald-400/20 pt-8">
+        <footer className="mt-12 flex justify-between border-t pt-8">
 
           <div className="flex gap-2">
             <div className="w-2 h-2 rounded-full bg-emerald-300" />
@@ -172,7 +169,7 @@ export default function FreshStandings() {
           </div>
 
           <p className="text-[10px] text-emerald-200/40 uppercase tracking-[0.4em] font-bold">
-            © {new Date().getFullYear()} MITS Administration
+            © {new Date().getFullYear()} MSL
           </p>
 
         </footer>
