@@ -36,8 +36,8 @@ export default async function FreshStandings() {
               <Image
                 src="/logo.png"
                 alt="MITS Logo"
-                width={200}
-                height={200}
+                width={150}
+                height={150}
               />
 
             <div>
@@ -162,9 +162,17 @@ export default async function FreshStandings() {
         <footer className="mt-12 flex justify-between border-t pt-8">
 
           <div className="flex gap-2">
-            <div className="w-2 h-2 rounded-full bg-emerald-300" />
-            <div className="w-2 h-2 rounded-full bg-emerald-400" />
-            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+            <div className="w-15 h-15 rounded-full flex justify-center items-center" >
+              <Image src={'/sc.png'} width={40} height={40} alt="student council"/>
+            </div>
+            <div className="w-15 h-15 rounded-full flex justify-center items-center" >
+                            <Image src={'/433.png'} width={60} height={60} alt="433"/>
+
+            </div>
+            <div className="w-15 h-15 rounded-full flex justify-center items-center" >
+                            <Image src={'/logo.png'} width={60} height={60} alt="msl"/>
+
+            </div>
           </div>
 
           <p className="text-[10px] text-emerald-200/40 uppercase tracking-[0.4em] font-bold">
