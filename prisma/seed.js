@@ -5,14 +5,14 @@ import { prisma } from "../lib/prisma.js";
 
 async function main() {
   const clubs = [
-    { clubName: "Flamengos" ,logoUrl:"https://mitssuperleague.vercel.app/flamigos.jpg"},
-    { clubName: "Botafago",logoUrl:"https://mitssuperleague.vercel.app/botafago.jpg" },
-    { clubName: "Atlanta" ,logoUrl:"https://mitssuperleague.vercel.app/atlanta.png"},
-    { clubName: "Ajax" ,logoUrl:"https://mitssuperleague.vercel.app/ajax.png"},
-    { clubName: "Wolves" ,logoUrl:"https://mitssuperleague.vercel.app/wolves.jpg"},
-    { clubName: "Celtics" ,logoUrl:"https://mitssuperleague.vercel.app/celitics.png"},
-    { clubName: "Palmeras", logoUrl:"https://mitssuperleague.vercel.app/palmeras.jpg"},
-    { clubName: "Wrexham" ,logoUrl:"https://mitssuperleague.vercel.app/wrexham.jpg"},
+    { clubName: "Flamengos" ,logoUrl:"/flamigos.jpg"},
+    { clubName: "Botafago",logoUrl:"/botafago.jpg" },
+    { clubName: "Atlanta" ,logoUrl:"/atlanta.png"},
+    { clubName: "Ajax" ,logoUrl:"/ajax.png"},
+    { clubName: "Wolves" ,logoUrl:"/wolves.jpg"},
+    { clubName: "Celtics" ,logoUrl:"/celitics.png"},
+    { clubName: "Palmeras", logoUrl:"/palmeras.jpg"},
+    { clubName: "Wrexham" ,logoUrl:"/wrexham.jpg"},
   ];
 
   

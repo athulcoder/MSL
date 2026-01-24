@@ -12,7 +12,7 @@ export default async function FreshStandings() {
   const teams = clubs.map((club, index) => ({
     pos: index + 1,
     name: club.clubName,
-    logo: club.logoUrl || "/club.png",
+    logo:  club.logoUrl,
     pl: club.played,
     w: club.won,
     d: club.draw,
