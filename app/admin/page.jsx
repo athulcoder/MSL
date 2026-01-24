@@ -2,6 +2,8 @@ import EditableTable from '@/components/EditableTable'
 import React from 'react'
 import { getClubs } from '../actions/club.js';
 
+
+export const dynamic = "force-dynamic";
 export default async function Page() {
 
       const clubs = await getClubs();
