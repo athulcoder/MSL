@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Club" ADD COLUMN     "goals" INTEGER NOT NULL DEFAULT 0;

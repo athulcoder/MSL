@@ -30,11 +30,16 @@ export async function getClubs() {
         return b.goal_diff - a.goal_diff;
       }
 
-      // 3. Alphabetical
+      // 3. Goals Scored
+      if (b.goals_scored !== a.goals_scored) {
+        return b.goals_scored - a.goals_scored;
+      }
+
+      // 4. Alphabetical
       return a.clubName.localeCompare(b.clubName);
     });
   }
 
-  console.log(sortedClubs)
+  console.log(sortedClubs);
   return sortedClubs;
 }

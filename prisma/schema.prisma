@@ -33,6 +33,7 @@ model Club {
   lost Int @default(0)
   goal_diff Int @default(0)
   points Int @default(0)
+  goals_scored Int @default(0)
 }
 
 
