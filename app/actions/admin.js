@@ -12,6 +12,7 @@ export async function saveDataToDB(id,data){
             points:clubData[0].pts,
             played:clubData[0].pl,
             goal_diff:clubData[0].gd,
+            goals_scored:clubData[0].goal_scored
         })
     });
 

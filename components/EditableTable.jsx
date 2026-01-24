@@ -7,6 +7,7 @@ import { saveDataToDB } from "../app/actions/admin.js";
 import Toast from "./Toast.jsx";
 
 export default  function EditableTable({ teams }) {
+  console.log(teams)
   const [editRow, setEditRow] = useState(null);
   const [data, setData] = useState(teams);
   const [toast, setToast] = useState({
@@ -26,9 +27,13 @@ const sortTeams = (teams) => {
     if (b.gd !== a.gd) {
       return b.gd - a.gd;
     }
-    
 
-    // 3. Alphabetical
+    // 3. Goals Scored
+    if (b.goal_scored !== a.goal_scored) {
+      return b.goal_scored - a.goal_scored;
+    }
+
+    // 4. Alphabetical
     return a.name.localeCompare(b.name);
   });
 };
@@ -113,6 +118,7 @@ const sortTeams = (teams) => {
               <th>D</th>
               <th>L</th>
               <th>GD</th>
+              <th>Goal Scored</th>
               <th>Pts</th>
               <th className="rounded-r-lg">Edit</th>
 
@@ -155,7 +161,7 @@ const sortTeams = (teams) => {
                 </td>
 
                 {/* Editable Fields */}
-                {["pl", "w", "d", "l", "gd", "pts"].map((field) => (
+                {["pl", "w", "d", "l", "gd", "goal_scored" ,"pts"].map((field) => (
 
                   <td key={field} className="text-center py-3">
 

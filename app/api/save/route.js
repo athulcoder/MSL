@@ -16,6 +16,7 @@ export  async function PUT(req){
             won:club.won,
             played:club.played,
             goal_diff:club.goal_diff,
+            goals_scored:club.goals_scored,
             points:club.points
         }
     });

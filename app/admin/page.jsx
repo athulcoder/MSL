@@ -20,7 +20,7 @@ const teams = clubs.map((club, index) => ({
   l: Number(club.lost),
 
   gd: Number(club.goal_diff), // ✅ NUMBER ONLY
-
+  goal_scored:Number(club.goals_scored),
   pts: Number(club.points),
 }));
   return (
