@@ -32,15 +32,13 @@ export default async function FreshStandings() {
         {/* Header */}
         <header className="flex flex-col md:flex-row items-center justify-between mb-10 gap-6">
 
-          <div className="flex items-center gap-5">
-            <div className="p-3 bg-white rounded-2xl shadow border border-emerald-200">
+          <div className="flex items-center gap-2">
               <Image
                 src="/logo.png"
                 alt="MITS Logo"
-                width={50}
-                height={50}
+                width={200}
+                height={200}
               />
-            </div>
 
             <div>
               <h1 className="text-2xl md:text-4xl font-black tracking-tight text-emerald-100 uppercase">
@@ -103,13 +101,14 @@ export default async function FreshStandings() {
                   <td className="py-4 px-3 border">
                     <div className="flex items-center gap-4">
 
-                      <div className="w-10 h-10 rounded-full bg-emerald-50 p-1.5 border">
+                      <div className="w-15 h-15 rounded-full bg-emerald-50 p-1.5 border">
 
                         <Image
                           src={team.logo}
                           alt={team.name}
-                          width={40}
-                          height={40}
+                          width={60}
+                          height={60}
+                          className="rounded-full"
                         />
 
                       </div>
