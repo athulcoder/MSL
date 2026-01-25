@@ -101,16 +101,16 @@ export default async function FreshStandings() {
                   <td className="py-4 px-3 border">
                     <div className="flex items-center gap-4">
 
-                      <div className="w-15 h-15 rounded-full bg-emerald-50 p-1.5 border">
+                      <div className="w-15 h-15 rounded-full flex justify-center items-center">
 
-                        <Image
+                      
+                          <Image
                           src={team.logo}
                           alt={team.name}
                           width={60}
                           height={60}
                           className="rounded-full"
                         />
-
                       </div>
 
                       <span className="font-bold text-emerald-950 uppercase">
