@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const viewport = {
   width: 1200,
-  initialScale: 0.3,
+  initialScale: 0.4,
 };
 
 const geistSans = Geist({
