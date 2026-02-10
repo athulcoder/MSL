@@ -4,6 +4,13 @@ import { prisma } from "../../../lib/prisma.js";
 export  async function PUT(req){
     
     //verify session id 
+    const {searchParams} = new URL(req.url);
+
+    const adminId = searchParams.get('adminid');
+
+    if(!adminId){
+        return NextResponse.error("Not authenticated ");
+    }
 
     //update data
     const club = await req.json();
